@@ -1,25 +1,29 @@
-const settingContent = () => {
-    const newId = $("#new").prop('checked')
-    const packedId = $("#packed").prop('checked')
-    const intransitId = $("#intransit").prop('checked')
-    const deliveredId = $("#delivered").prop('checked')
-    if (allContent.length > 0) {
-        currentContent = allContent.filter((value, key) => {
-            if (newId && value.orderStatus === 'New') return true
-            if (packedId && value.orderStatus === 'Packed') return true
-            if (deliveredId && value.orderStatus === 'Delivered') return true
-            if (intransitId && value.orderStatus === 'InTransit') return true
-            return false
-        })
-    }
-}
+$(document).ready(function() {
 
-const renderUI = () => {
-    $('tbody').html('')
-    $('#count').html(currentContent.length)
-    if (currentContent.length > 0) {
-        for (let i = 0; i < currentContent.length; i++) {
-            $('tbody').append(`
+    const settingTableContent = () => {
+        const newId = $("#new").prop('checked');
+        const packedId = $("#packed").prop('checked');
+        const intransitId = $("#intransit").prop('checked');
+        const deliveredId = $("#delivered").prop('checked');
+        if (allContent.length > 0) {
+            currentContent = allContent.filter((value) => {
+                if (newId && value.orderStatus === 'New') return true;
+                if (packedId && value.orderStatus === 'Packed') return true;
+                if (deliveredId && value.orderStatus === 'Delivered') return true;
+                if (intransitId && value.orderStatus === 'InTransit') return true;
+                return false;
+
+            })
+        }
+    }
+
+    const renderTableData = () => {
+        $('tbody').html('');
+        $('#count').html(currentContent.length);
+        if (currentContent.length > 0) {
+
+            for (let i = 0; i < currentContent.length; i++) {
+                $('tbody').append(`
                 <tr>
                     <td class="light"> ${currentContent[i].id} </td>
                     <td> ${currentContent[i].customerName} </td>
@@ -29,27 +33,30 @@ const renderUI = () => {
                     <td>${currentContent[i].orderStatus}</td>
                 </tr>
             `)
+            }
+
         }
+
     }
-}
 
-const showContent = () => {
-    settingContent()
-    renderUI()
-}
+    const showTableContent = () => {
+        settingTableContent();
+        renderTableData();
+    }
 
-const getContent = () => {
-    $.ajax({
-        url: orderUrl,
-        success: (result) => {
-            allContent = result
-            showContent()
-        }
-    })
-}
+    const getContent = () => {
+        $.ajax({
+            url: orderUrl,
+            success: (result) => {
+                allContent = result;
+                console.log(allContent);
+                showTableContent();
+            }
+        })
+    }
 
-$(document).ready(function() {
-    checkLogin()
-    getContent()
-    $('.checkBox').change(showContent)
+    checkLogin();
+    getContent();
+    $('.checkBox').change(showTableContent);
+
 });

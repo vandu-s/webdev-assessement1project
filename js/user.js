@@ -1,8 +1,10 @@
-const renderUI = (data) => {
-    $('tbody').html('')
-    if (data.length > 0) {
-        for (let i = 0; i < data.length; i++) {
-            $('tbody').append(`
+$(document).ready(function() {
+
+    const renderTableContent = (data) => {
+        $('tbody').html('')
+        if (data.length > 0) {
+            for (let i = 0; i < data.length; i++) {
+                $('tbody').append(`
                 <tr>
                     <td class="light">${data[i].id}</td>
                     <td> <img src=${data[i].profilePic} alt="profile pic"> </td>
@@ -12,31 +14,30 @@ const renderUI = (data) => {
                     <td class="light">${data[i].currentCity} , ${data[i].currentCountry}</td>
                 </tr>
             `)
+            }
         }
     }
-}
 
-const getContent = () => {
-    $.ajax({
-        url: userUrl,
-        success: (result) => {
-            allContent = result
-            renderUI(allContent)
-        }
-    })
-}
+    const getContent = () => {
+        $.ajax({
+            url: userUrl,
+            success: (result) => {
+                allContent = result;
+                renderTableContent(allContent);
+            }
+        })
+    }
 
-const searchContent = (urlData) => {
-    $.ajax({
-        url: urlData,
-        success: (result) => {
-            currentContent = result
-            renderUI(currentContent)
-        }
-    })
-}
+    const searchContent = (urlData) => {
+        $.ajax({
+            url: urlData,
+            success: (result) => {
+                currentContent = result
+                renderTableContent(currentContent)
+            }
+        })
+    }
 
-$(document).ready(function() {
     checkLogin()
     getContent()
 
@@ -44,12 +45,12 @@ $(document).ready(function() {
         e.preventDefault()
         const inputVal = $('#searchBox').val()
         if (!inputVal.trim()) {
-            renderUI(allContent)
+            renderTableContent(allContent)
             return
         }
         if (inputVal.length > 1) {
             $('#searchBox').val('')
-            const url = searchUser + inputVal
+            const url = searchUserUrl + inputVal
             searchContent(url)
         } else {
             alert('please enter atlease 2 charecter')

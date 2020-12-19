@@ -1,12 +1,12 @@
-const setContent = () => getLocalData('login') && window.location.replace('/order.html')
+const setLoginContents = () => getLocalData('login') && window.location.replace('/order.html');
 
-$(document).ready(function() {
-    setContent();
+$(document).ready(function(e) {
+    setLoginContents();
 
     $('#loginForm').submit((e) => {
-        e.preventDefault()
-        let userName = $('#userName').val()
-        let password = $('#password').val()
+        e.preventDefault();
+        let userName = $('#username').val();
+        let password = $('#password').val();
         if (userName === password) {
             $.ajax({
                 type: "POST",
@@ -16,14 +16,17 @@ $(document).ready(function() {
                     password: password
                 },
                 success: (success) => {
-                    setLocalData('login', true)
-                    alert('login success')
-                    window.location.href = '/order.html'
+                    setLocalData('login', true);
+                    alert('Login Successful!');
+                    window.location.href = './order.html'
+
                 }
             });
         } else {
-            alert('please enter valid credential')
+            alert('Please enter the valid credential!');
         }
+
+
     })
 
 });
