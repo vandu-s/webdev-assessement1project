@@ -1,5 +1,5 @@
-let allContent = []
-let currentContent = []
+let allContent = [];
+let currentContent = [];
 
 const getLocalData = key => localStorage.getItem(key);
 

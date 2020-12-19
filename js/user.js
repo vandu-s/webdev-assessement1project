@@ -32,28 +32,29 @@ $(document).ready(function() {
         $.ajax({
             url: urlData,
             success: (result) => {
-                currentContent = result
-                renderTableContent(currentContent)
+                currentContent = result;
+                renderTableContent(currentContent);
             }
         })
     }
 
-    checkLogin()
-    getContent()
 
     $('#searchForm').submit((e) => {
         e.preventDefault()
-        const inputVal = $('#searchBox').val()
+        const inputVal = $('#searchBox').val();
         if (!inputVal.trim()) {
             renderTableContent(allContent)
             return
         }
         if (inputVal.length > 1) {
-            $('#searchBox').val('')
-            const url = searchUserUrl + inputVal
-            searchContent(url)
+            $('#searchBox').val('');
+            const url = searchUserUrl + inputVal;
+            searchContent(url);
         } else {
             alert('please enter atlease 2 character')
         }
     })
+    checkLogin();
+    getContent();
+
 });
