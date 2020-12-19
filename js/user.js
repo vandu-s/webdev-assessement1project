@@ -53,7 +53,7 @@ $(document).ready(function() {
             const url = searchUserUrl + inputVal
             searchContent(url)
         } else {
-            alert('please enter atlease 2 charecter')
+            alert('please enter atlease 2 character')
         }
     })
 });
