@@ -44,7 +44,7 @@ $(document).ready(function() {
         renderTableData();
     }
 
-    const getContent = () => {
+    const getTableContent = () => {
         $.ajax({
             url: orderUrl,
             success: (result) => {
@@ -56,7 +56,7 @@ $(document).ready(function() {
     }
 
     checkLogin();
-    getContent();
+    getTableContent();
     $('.checkBox').change(showTableContent);
 
 });
